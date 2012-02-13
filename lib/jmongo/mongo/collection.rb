@@ -129,10 +129,10 @@ module Mongo
         begin
           jres = @j_collection.insert( dbo, concern )
           result = from_dbobject(jres.get_last_error(concern))
-          if @monitorable
-            mon_obj = one_obj.map{ |doc| {'_id'=>doc['_id'], 'action'=>1} }
-            @j_mon_collection.( to_dbobject(mon_obj), concern )
-          end
+          # if @monitorable
+          #   mon_obj = one_obj.map{ |doc| {'_id'=>doc['_id'], 'action'=>1} }
+          #   @j_mon_collection.insert( to_dbobject(mon_obj), concern )
+          # end
         rescue => ex
           if ex.message =~ /E11000/ #noop duplicate key
             result = {'err'=>ex.message}
